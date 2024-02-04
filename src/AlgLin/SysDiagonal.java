@@ -10,7 +10,7 @@ public class SysDiagonal extends SysLin{
 	public Vecteur resolution() throws IrregularSysLinException {
 		
 		int taille = this.getMatriceSystem().nbLigne();
-		Vecteur matriceSolution = new Vecteur(taille);
+		Vecteur solution = new Vecteur(taille);
 		
 		for(int i =0; i < taille; i++) {
 			double elementDiago = this.matriceSystem.getCoef(i, i);
@@ -19,9 +19,9 @@ public class SysDiagonal extends SysLin{
 	        }
 			
 			double elementSecondMembre = this.getSecondMembre().getCoef(i);
-			matriceSolution.remplaceCoef(i, 0, elementSecondMembre / elementDiago);
+			solution.remplaceCoef(i, 0, elementSecondMembre / elementDiago);
 		}
-		return matriceSolution;
+		return solution;
 	}
 
 	public static void main(String[] args) throws IrregularSysLinException {
@@ -29,11 +29,13 @@ public class SysDiagonal extends SysLin{
 		double[][] tab1 = { {2, 0, 0, 0}, {0, 3, 0, 0}, {0, 0, 4, 0}, {0, 0, 0, 2}};
 		Matrice matriceSys = new Matrice(tab1);
 		System.out.println("la matrice A :\n" + matriceSys.toString());
-		
-		double[] tab2 = {4, 9, 16, 4};
+		System.out.println("******************************************************\n");
+
+		double[] tab2 = {4.0, 9.0, 16.0, 4.0};
 		Vecteur secondMembre = new Vecteur(tab2);
 		System.out.println("le vecteur B :\n" + secondMembre.toString());
-		
+		System.out.println("******************************************************\n");
+
 		SysDiagonal s = new SysDiagonal(matriceSys, secondMembre); 
 		System.out.println("la solution de ce système (vecteur x) :\n" + s.resolution());
 	}
