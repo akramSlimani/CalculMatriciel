@@ -27,13 +27,14 @@ public class SysTriangInf extends SysLin {
         return solution;
 	}
 	
+	
 	public static void main(String[] args) throws IrregularSysLinException {
-		double[][] tab1 = {{16.0,0.0,0.0},{3.0,4.0,0.0},{2.0,4.0,16}};
+		double[][] tab1 = {{2.0, 0.0, 0.0},{3.0, 4.0 , 0.0},{2.0, 4.0, 16.0}};
 		Matrice matriceSys = new Matrice(tab1);
 		System.out.println("la matrice A :\n" + matriceSys.toString());
 		System.out.println("******************************************************\n");
 
-		double[] tab2 = {4.0,16.0,9.0};
+		double[] tab2 = {4.0, 12.0, 11.0};
 		Vecteur secondMembre = new Vecteur(tab2);
 		System.out.println("le vecteur B :\n" + secondMembre.toString());
 		System.out.println("******************************************************\n");
@@ -41,5 +42,4 @@ public class SysTriangInf extends SysLin {
 		SysTriangInf s = new SysTriangInf(matriceSys, secondMembre); 
 		System.out.println("la solution de ce système (vecteur x) :\n" + s.resolution());	
 	}
-
 }

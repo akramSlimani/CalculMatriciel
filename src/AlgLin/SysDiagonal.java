@@ -26,7 +26,7 @@ public class SysDiagonal extends SysLin{
 
 	public static void main(String[] args) throws IrregularSysLinException {
 		
-		double[][] tab1 = { {2, 0, 0, 0}, {0, 3, 0, 0}, {0, 0, 4, 0}, {0, 0, 0, 2}};
+		double[][] tab1 = { {2.0, 0.0, 0.0, 0.0}, {0.0, 3.0, 0.0, 0.0}, {0.0, 0.0, 4.0, 0.0}, {0.0, 0.0, 0.0, 2.0}};
 		Matrice matriceSys = new Matrice(tab1);
 		System.out.println("la matrice A :\n" + matriceSys.toString());
 		System.out.println("******************************************************\n");
