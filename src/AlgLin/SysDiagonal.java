@@ -8,10 +8,12 @@ public class SysDiagonal extends SysLin{
 
 	@Override
 	public Vecteur resolution() throws IrregularSysLinException {
+		
 		int taille = this.getMatriceSystem().nbLigne();
 		Vecteur matriceSolution = new Vecteur(taille);
+		
 		for(int i =0; i < taille; i++) {
-			double elementDiago = matriceSystem.getCoef(i, i);
+			double elementDiago = this.matriceSystem.getCoef(i, i);
 			if (elementDiago == 0) {
 	            throw new IrregularSysLinException("Le système est irrégulier (élément de la diagonale nul).");
 	        }
