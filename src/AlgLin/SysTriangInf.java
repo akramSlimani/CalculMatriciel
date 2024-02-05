@@ -13,13 +13,23 @@ public class SysTriangInf extends SysLin {
 		int taille = this.getMatriceSystem().nbLigne();
 		Vecteur solution = new Vecteur(taille);
 		
+		 for(int i = 0; i < this.getMatriceSystem().nbLigne(); i++) {
+		      
+		      for(int j = 0; j < this.getMatriceSystem().nbColonne(); j++) {
+		        
+		        if(i < j && this.getMatriceSystem().getCoef(i, j) != 0) {
+		          
+		          throw new IrregularSysLinException("La matrice n'est pas triangulaire inférieure !");
+		        }
+		      }
+		    }
+		 
 		for (int i = 0; i < solution.getTaille(); i++) {
            double s=0;
            
            for(int j = 0; j < i; j++) {
         	   s += this.getMatriceSystem().getCoef(i, j) * solution.getCoef(j);
            }
-           
            solution.remplaceCoef(i, 0, (this.getSecondMembre().getCoef(i) - s)/this.getMatriceSystem().getCoef(i, i));
 
         }
@@ -29,12 +39,12 @@ public class SysTriangInf extends SysLin {
 	
 	
 	public static void main(String[] args) throws IrregularSysLinException {
-		double[][] tab1 = {{2.0, 0.0, 0.0},{3.0, 4.0 , 0.0},{2.0, 4.0, 16.0}};
+		double[][] tab1 = {{1.0, 0.0, 0.0},{4.0, 1.0 , 0.0},{3.0, 0.6, 1.0}};
 		Matrice matriceSys = new Matrice(tab1);
 		System.out.println("la matrice A :\n" + matriceSys.toString());
 		System.out.println("******************************************************\n");
 
-		double[] tab2 = {4.0, 12.0, 11.0};
+		double[] tab2 = {3.0, 5.0, 8.0};
 		Vecteur secondMembre = new Vecteur(tab2);
 		System.out.println("le vecteur B :\n" + secondMembre.toString());
 		System.out.println("******************************************************\n");
