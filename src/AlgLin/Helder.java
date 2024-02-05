@@ -6,9 +6,9 @@ public class Helder extends SysLin {
 
 	public Helder(Matrice matriceSystem, Vecteur secondMembre) throws IrregularSysLinException {
 		super(matriceSystem, secondMembre);
-		l = new Matrice(matriceSystem.nbLigne(), secondMembre.nbColonne());
-		d = new Matrice(matriceSystem.nbLigne(), secondMembre.nbColonne());
-		r = new Matrice(matriceSystem.nbLigne(), secondMembre.nbColonne());
+		l = new Matrice(matriceSystem.nbLigne(), matriceSystem.nbColonne());
+		d = new Matrice(matriceSystem.nbLigne(), matriceSystem.nbColonne());
+		r = new Matrice(matriceSystem.nbLigne(), matriceSystem.nbColonne());
 	}
 
 	public void factorLDR() {
@@ -106,18 +106,35 @@ public class Helder extends SysLin {
 		}
 	}
 
-	public static void main(String[][] args) {
-		
+	public static void main(String[] args) throws IrregularSysLinException {
+
 		System.out.println("**********************       EXEMPLE1       ********************************\n");
-		Matrice premierMembre = new Matrice("C:\\Users\\akram\\eclipse-workspace\\Calcul_Matriciel\\src\\AlgLin\\matrice2.txt");
-		Vecteur secondMembre = new Vecteur("C:\\Users\\akram\\eclipse-workspace\\Calcul_Matriciel\\src\\AlgLin\\vecteur2.txt");
-		
-		Matrice ProdPremierMembre = Matrice.produit(premierMembre, premierMembre);
-	
+		Matrice premierMembre = new Matrice("C:\\Users\\akram\\eclipse-workspace\\Calcul_Matriciel\\src\\AlgLin\\matrice1.txt");
+		Vecteur secondMembre = new Vecteur("C:\\Users\\akram\\eclipse-workspace\\Calcul_Matriciel\\src\\AlgLin\\vecteur1.txt");
+
 		System.out.println("la matrice A :\n" + premierMembre.toString());
 		System.out.println("******************************************************\n");
 		
-		System.out.println("la matrice A² :\n" + premierMembre.toString());
+		System.out.println("le second membre :\n" + secondMembre.toString());
 		System.out.println("******************************************************\n");
+
+		Matrice prodPremierMembre = Matrice.produit(premierMembre, premierMembre);
+		System.out.println("la matrice A² :\n" + prodPremierMembre.toString());
+		System.out.println("******************************************************\n");
+	
+		Helder systeme = new Helder(prodPremierMembre, secondMembre);
+		systeme.factorLDR();
+		
+		Vecteur resultPartiel = systeme.resolutionPartielle();
+		System.out.println("En utilisant la resolution partielle aprés factorisation :\n" + resultPartiel);
+	   
+		Vecteur resultResol = systeme.resolution();
+		System.out.println("En utilisant la resolution normale :\n" + resultResol);
+		
+		Vecteur secondMembre2 = new Vecteur("C:\\Users\\akram\\eclipse-workspace\\Calcul_Matriciel\\src\\AlgLin\\vecteur2.txt");
+		systeme.setSecondMembre(secondMembre2);
+		System.out.println("En utilisant un nouveau SecondMembre :\n" + resultResol);
+
+		
 	}
 }
