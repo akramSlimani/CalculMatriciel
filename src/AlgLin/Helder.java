@@ -108,7 +108,7 @@ public class Helder extends SysLin {
 
 	public static void main(String[] args) throws IrregularSysLinException {
 
-		System.out.println("**********************       EXEMPLE1       ********************************\n");
+		System.out.println("**********************       test Helder       ********************************\n");
 		Matrice premierMembre = new Matrice("C:\\Users\\akram\\eclipse-workspace\\Calcul_Matriciel\\src\\AlgLin\\matrice1.txt");
 		Vecteur secondMembre = new Vecteur("C:\\Users\\akram\\eclipse-workspace\\Calcul_Matriciel\\src\\AlgLin\\vecteur1.txt");
 
@@ -131,7 +131,7 @@ public class Helder extends SysLin {
 		Vecteur resultResol = systeme.resolution();
 		System.out.println("En utilisant la resolution normale :\n" + resultResol);
 		
-		Vecteur secondMembre2 = new Vecteur("C:\\Users\\akram\\eclipse-workspace\\Calcul_Matriciel\\src\\AlgLin\\vecteur2.txt");
+		Vecteur secondMembre2 = new Vecteur("C:\\Users\\akram\\eclipse-workspace\\Calcul_Matriciel\\src\\AlgLin\\vecteur1.txt");
 		systeme.setSecondMembre(secondMembre2);
 		System.out.println("En utilisant un nouveau SecondMembre :\n" + resultResol);
 

@@ -157,6 +157,16 @@ public class Vecteur extends Matrice {
 	    
 	    double p = produit(v2, v3);
 	    System.out.println("produit scalaire du vecteur v2*v3 : " + p);
+	    
+	    
+	    double normeL1 = v2.normeL1();
+        System.out.println("norme L1 du vecteur v2 : " + normeL1);
+
+        double normeL2 = v2.normeL2();
+        System.out.println("norme L2 du vecteur v2 : " + normeL2);
+
+        double normeLInfini = v2.normeLInfini();
+        System.out.println("norme Linfini du vecteur v2 : " + normeLInfini);
 		
 	}
 }
