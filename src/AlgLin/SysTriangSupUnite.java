@@ -53,7 +53,7 @@ public Vecteur resolution() throws IrregularSysLinException {
 		System.out.println("le vecteur B :\n" + secondMembre.toString());
 		System.out.println("******************************************************\n");
 
-		SysTriangSup s = new SysTriangSup(matriceSys, secondMembre); 
+		SysTriangSupUnite s = new SysTriangSupUnite(matriceSys, secondMembre); 
 		System.out.println("la solution de ce système (vecteur x) :\n" + s.resolution());	
 
 		
@@ -61,11 +61,14 @@ public Vecteur resolution() throws IrregularSysLinException {
 		// exemple éronné : (les diagonaux sont pas tous égaux à 1 ) une exception doit être levée:
 		double[][] tab3 = {{1.0, 1.0, -2.0},{0.0, 1.0 , -1.5},{0.0, 0.0, 15.0}};
 		Matrice matriceSys2 = new Matrice(tab3);
-		System.out.println("la matrice A2 :\n" + matriceSys.toString());
+		System.out.println("la matrice A2 :\n" + matriceSys2.toString());
 		System.out.println("******************************************************\n");
 
 		SysTriangSupUnite s2 = new SysTriangSupUnite(matriceSys2, secondMembre); 
 		System.out.println("la solution de ce système (vecteur x) :\n" + s2.resolution());
+		
+		
+		
 	
 	}
 }

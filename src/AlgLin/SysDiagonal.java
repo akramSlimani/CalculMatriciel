@@ -32,13 +32,13 @@ public class SysDiagonal extends SysLin{
 		System.out.println("la matrice A :\n" + matriceSys.toString());
 		System.out.println("******************************************************\n");
 
-		double[] tab2 = {4.0, 9.0, 16.0, 4.0};
+		double[] tab2 = {3.0, 1.0, 2.0, 1.0};
 		Vecteur secondMembre = new Vecteur(tab2);
 		System.out.println("le vecteur B :\n" + secondMembre.toString());
 		System.out.println("******************************************************\n");
+		SysDiagonal s = new SysDiagonal(matriceSys, secondMembre);
 		
 		try {
-		SysDiagonal s = new SysDiagonal(matriceSys, secondMembre); 
 		System.out.println("la solution de ce système (vecteur x) :\n" + s.resolution());
 		}catch(IrregularSysLinException e){
 	        System.out.println("Exception levée : " + e.getMessage());
@@ -50,11 +50,12 @@ public class SysDiagonal extends SysLin{
 		System.out.println("la matrice A2 :\n" + matriceSys2.toString());
 		System.out.println("******************************************************\n");
 		
+		Vecteur v = s.resolution();
 		Vecteur v1 = new Vecteur(tab2.length);
 		Vecteur v2 = new Vecteur(tab2.length);
 		for(int i = 0; i < tab2.length; i++) {
 		      
-		      v2.remplaceCoef(i, 0, Matrice.produit(matriceSys, secondMembre).getCoef(i, 0));
+		      v2.remplaceCoef(i, 0, Matrice.produit(matriceSys2, v).getCoef(i, 0));
 		    }
 		
 		v1 = Vecteur.soustraction(v2, secondMembre);
@@ -63,14 +64,13 @@ public class SysDiagonal extends SysLin{
 	    System.out.println("norme L2 = " + v1.normeL2()); 
 	    System.out.println("norme Linfini = " + v1.normeLInfini());
 	    
-	    if(v1.normeL2() <= Matrice.EPSILON) {
+	    if(v1.normeL2() >= Matrice.EPSILON) {
 	        
-	        System.out.println("La résolution est bonne");
+	        System.out.println("bonne résolution ");
 	      } else {
 	        
-	        System.out.println("La résolution n'est pas bonne");
+	        System.out.println("mauvaise résolution ");
 	      }
 	    }
-	    
-	}
+}
 

@@ -66,6 +66,10 @@ public class SysTriangInfUnite extends SysLin{
 
 		SysTriangInfUnite s2 = new SysTriangInfUnite(matriceSys2, secondMembre); 
 		System.out.println("la solution de ce système (vecteur x) :\n" + s2.resolution());
+	
+	
+		System.out.println("**********************       CALCUL DE LA NORME     ********************************\n");
+		
 	}
 	
 	}

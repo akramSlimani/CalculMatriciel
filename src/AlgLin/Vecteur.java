@@ -2,6 +2,7 @@ package AlgLin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.invoke.MethodHandles.Lookup.ClassOption;
 import java.util.Scanner;
 
@@ -53,17 +54,75 @@ public class Vecteur extends Matrice {
 		return res;
 	}
 	
-	public static int produit(Vecteur v1, Vecteur v2) throws Exception{
-		int res = 0;
-		if(v1.getTaille() == v2.getTaille()) {
-			for(int i = 0; i < v1.getTaille(); i++) {
-				res += v1.getCoef(i) * v2.getCoef(i);
-			}
-			return res;
-		}else {
-			throw new Exception("v1 et v2 n'ont pas la meme taille");
-		}
-	}
+	public static double produit(Vecteur v1, Vecteur v2) throws IOException{
+	    
+	    int result = 0;
+	    
+	    if(v1.getTaille() != v2.getTaille()) throw new IOException();
+	    
+	    for(int i = 0; i < v1.getTaille(); ++i) {
+	      
+	      result += v1.getCoef(i)*v2.getCoef(i);
+	    }
+	    
+	    return result;
+	  }
+	
+		  
+		  public static Vecteur soustraction(Vecteur v1, Vecteur v2) {
+		    
+		    assert v1.getTaille() == v2.getTaille();
+		    
+		    Vecteur result = new Vecteur((int)v1.getTaille());
+		    
+		    for(int i = 0; i < v1.getTaille(); ++i) {
+		      
+		      result.remplaceCoef(i, 0, v1.getCoef(i) - v2.getCoef(i));
+		    }
+		    
+		    return result;
+		  }
+		  
+		  public double normeL1() {
+		    
+		    double norme = 0;
+		    
+		    for(int i = 0; i < getTaille(); ++i) {
+		      
+		      norme += Math.abs(getCoef(i));
+		    }
+		    
+		    return norme;
+		  }
+		  
+		  public double normeL2() {
+		    
+		    double norme = 0;
+		    
+		    for(int i = 0; i < getTaille(); ++i) {
+		      
+		      norme += Math.pow(getCoef(i), 2);
+		    }
+		    
+		    return Math.sqrt(norme);
+		  }
+		  
+		  public double normeLInfini() {
+		    
+		    double max = getCoef(0);
+		    
+		    for(int i = 0; i < getTaille(); ++i) {
+		      
+		      if(max < Math.abs(getCoef(i))) {
+		        
+		        max = Math.abs(getCoef(i));
+		      }
+		    }
+		    
+		    
+		    return max;
+		  }
+		  
 	
 	public static void main(String[] args) throws Exception{
 		int taille = 2;
