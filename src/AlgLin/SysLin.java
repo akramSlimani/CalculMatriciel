@@ -6,6 +6,7 @@ public abstract class SysLin {
 	protected Matrice matriceSystem;
 	protected Vecteur secondMembre;
 
+	
 	public SysLin(Matrice matriceSystem, Vecteur secondMembre) throws IrregularSysLinException {
 		if (matriceSystem.nbLigne() == matriceSystem.nbColonne()
 				&& matriceSystem.nbLigne() == secondMembre.getTaille()) {

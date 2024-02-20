@@ -110,6 +110,7 @@ public class Vecteur extends Matrice {
 		return Math.sqrt(norme);
 	}
 
+	/*à l'infinie = valeur absolue du plus grand coef*/
 	public double normeLInfini() {
 
 		double max = getCoef(0);
