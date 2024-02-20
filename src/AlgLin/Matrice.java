@@ -147,31 +147,32 @@ public class Matrice {
 	}
 
 	public static void main(String[] args) throws Exception {
-		System.out.println("**********************       EXEMPLE1       ********************************\n");
+		System.out.println("**********************       EXEMPLE1       **********************\n");
 		double mat[][] = { { 2, 1 , 3}, { 0, 1 , 4}, { 5, 1 , 3} };
 		Matrice a = new Matrice(mat);
 		System.out.println("construction d'une matrice par affectation d'un tableau :\n" + a);
 		
-		System.out.println("**********************       EXEMPLE2       ********************************\n");
+		System.out.println("**********************       EXEMPLE2       **********************\n");
 		Matrice b = new Matrice("C:\\Users\\akram\\eclipse-workspace\\Calcul_Matriciel\\src\\AlgLin\\matrice1.txt");
 		System.out.println("Construction d'une matrice par lecture d'un fichier :\n" + b);
 		
-		System.out.println("**********************       EXEMPLE3       ********************************\n");
+		System.out.println("**********************       EXEMPLE3       **********************\n");
 		Matrice c = new Matrice(2, 2);
 		c.recopie(b);
 		System.out.println("Recopie de la matrice b :\n" + c);
 		
-		System.out.println("**********************       EXEMPLE4       ********************************\n");
-		System.out.println("Nombre de lignes et colonnes de la matrice c :\n " + c.nbLigne() + ", " + c.nbColonne());
-		System.out.println("Coefficient (2,2) de la matrice b : \n" + b.getCoef(1, 1));
-		System.out.println("Nouvelle valeur de ce coefficient : 8");
+		System.out.println("**********************       EXEMPLE4       **********************\n");
+		System.out.println("Nombre de lignes et colonnes de la matrice c :     (" + c.nbLigne() + ", " + c.nbColonne() +")\n");
+		System.out.println("Coefficient (2,2) de la matrice b :      (" + b.getCoef(1, 1) + ")\n");
+		System.out.println("Nouvelle valeur de ce coefficient : 8 \n");
 		b.remplacecoef(1, 1, 8);
 		System.out.println("Vérification de la modification du coefficient");
-		System.out.println("Coefficient (2,2) de la matrice b :\n " + b.getCoef(1, 1));
+		System.out.println("Coefficient (2,2) de la matrice b :     (" + b.getCoef(1, 1)+")\n");
+		
 		System.out.println("Addition de 2 matrices : affichage des 2 matrices " + "puis de leur addition");
 		System.out.println(" matrice 1 :\n" + a + "\n matrice 2 :\n" + b + "\n somme :\n" + Matrice.addition(a, b));
 		
-		System.out.println("**********************       EXEMPLE5       ********************************\n");
+		System.out.println("**********************       EXEMPLE5       **********************\n");
 		System.out.println("Produit de 2 matrices : affichage des 2 matrices " + "puis de leur produit");
 		System.out.println(" matrice 1 :\n" + a + "\n matrice 2 :\n" + b + "\n produit :\n" + produit(a, b));
 	}
