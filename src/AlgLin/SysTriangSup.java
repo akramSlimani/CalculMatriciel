@@ -39,7 +39,7 @@ public class SysTriangSup extends SysLin {
 
 	public static void main(String[] args) throws IrregularSysLinException {
 		// exemple du td :
-		System.out.println("**********************       EXEMPLE1       ********************************\n");
+		System.out.println("**********************       EXEMPLE1       **********************\n");
 		double[][] tab1 = { { 1.0, 1.0, -2.0 }, { 0.0, 1.0, -3.0 / 2.0 }, { 0.0, 0.0, 1.0 } };
 		Matrice matriceSys = new Matrice(tab1);
 		System.out.println("la matrice A :\n" + matriceSys.toString());
@@ -53,7 +53,7 @@ public class SysTriangSup extends SysLin {
 		SysTriangSup s = new SysTriangSup(matriceSys, secondMembre);
 		System.out.println("la solution de ce système (vecteur x) :\n" + s.resolution());
 
-		System.out.println("**********************       EXEMPLE2 : test norme     ********************************\n");
+		System.out.println("**********************       EXEMPLE2 : test norme     **********************\n");
 		double[][] tab3 = { { 3.0, 0.6, 1.0 }, { 0.0, 1.0, 2.0 }, { 0.0, 0.0, 1.0 } };
 		Matrice matriceSys2 = new Matrice(tab3);
 		System.out.println("la matrice A2 :\n" + matriceSys2.toString());
