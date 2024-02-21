@@ -71,7 +71,7 @@ public class SysTriangSup extends SysLin {
 		v1 = Vecteur.soustraction(v2, secondMembre);
 
 		System.out.println("norme L1 = " + v1.normeL1());
-		if (v1.normeL1() >= Matrice.EPSILON) {
+		if (v1.normeL1() < Matrice.EPSILON) {
 
 			System.out.println("L1: bonne résolution\n ");
 		} else {
@@ -80,7 +80,7 @@ public class SysTriangSup extends SysLin {
 		}
 
 		System.out.println("norme L2 = " + v1.normeL2());
-		if (v1.normeL2() >= Matrice.EPSILON) {
+		if (v1.normeL2() < Matrice.EPSILON) {
 
 			System.out.println("L1: bonne résolution\n ");
 		} else {
@@ -91,7 +91,7 @@ public class SysTriangSup extends SysLin {
 
 		System.out.println("norme Linfini = " + v1.normeLInfini());
 
-		if (v1.normeLInfini() >= Matrice.EPSILON) {
+		if (v1.normeLInfini() <  Matrice.EPSILON) {
 
 			System.out.println("L1: bonne résolution\n ");
 		} else {
