@@ -84,7 +84,7 @@ public class Vecteur extends Matrice {
 		return result;
 	}
 
-	/*norme L1 = somme des valeurs absolues des coefs*/
+	/* norme L1 = somme des valeurs absolues des coefs */
 	public double normeL1() {
 
 		double norme = 0;
@@ -97,7 +97,7 @@ public class Vecteur extends Matrice {
 		return norme;
 	}
 
-	/*norme L2 = la racine carrée de la somme des carrés des coefs*/
+	/* norme L2 = la racine carrée de la somme des carrés des coefs */
 	public double normeL2() {
 
 		double norme = 0;
@@ -110,7 +110,7 @@ public class Vecteur extends Matrice {
 		return Math.sqrt(norme);
 	}
 
-	/*à l'infinie = valeur absolue du plus grand coef*/
+	/* à l'infinie = valeur absolue du plus grand coef */
 	public double normeLInfini() {
 
 		double max = getCoef(0);
@@ -162,20 +162,20 @@ public class Vecteur extends Matrice {
 
 		System.out.println("****************        calcul de la norme         ****************\n");
 
-		double[] tab2 = {0.9, 0.2, 0.03};
-	    Vecteur v = new Vecteur(tab2);
-	    
-	    System.out.println("Vecteur v :");
-	    System.out.println(v);
-	    
-	    double normeL1 = v.normeL1();
-	    System.out.println("Norme L1 du vecteur v : " + normeL1);
-	    
-	    double normeL2 = v.normeL2();
-	    System.out.println("Norme L2 du vecteur v : " + normeL2);
-	    
-	    double normeLInfini = v.normeLInfini();
-	    System.out.println("Norme LInfini du vecteur v : " + normeLInfini);
+		double[] tab2 = { 0.9, 0.2, 0.03 };
+		Vecteur v = new Vecteur(tab2);
+
+		System.out.println("Vecteur v :");
+		System.out.println(v);
+
+		double normeL1 = v.normeL1();
+		System.out.println("Norme L1 du vecteur v : " + normeL1);
+
+		double normeL2 = v.normeL2();
+		System.out.println("Norme L2 du vecteur v : " + normeL2);
+
+		double normeLInfini = v.normeLInfini();
+		System.out.println("Norme LInfini du vecteur v : " + normeLInfini);
 
 	}
 }
