@@ -155,19 +155,27 @@ public class Vecteur extends Matrice {
 
 		v3.remplaceCoef(0, 0, 99.99);
 		System.out.println("modification du coefficient 1 de v3 :\n" + v3);
-		System.out.println("******************************************************\n");
+		System.out.println("****************          test produit             ****************\n");
 
 		double p = produit(v2, v3);
-		System.out.println("produit scalaire du vecteur v2*v3 : " + p);
+		System.out.println("produit scalaire du vecteur v2*v3 : " + p + "\n");
 
-		double normeL1 = v2.normeL1();
-		System.out.println("norme L1 du vecteur v2 : " + normeL1);
+		System.out.println("****************        calcul de la norme         ****************\n");
 
-		double normeL2 = v2.normeL2();
-		System.out.println("norme L2 du vecteur v2 : " + normeL2);
-
-		double normeLInfini = v2.normeLInfini();
-		System.out.println("norme Linfini du vecteur v2 : " + normeLInfini);
+		double[] tab2 = {0.9, 0.2, 0.03};
+	    Vecteur v = new Vecteur(tab2);
+	    
+	    System.out.println("Vecteur v :");
+	    System.out.println(v);
+	    
+	    double normeL1 = v.normeL1();
+	    System.out.println("Norme L1 du vecteur v : " + normeL1);
+	    
+	    double normeL2 = v.normeL2();
+	    System.out.println("Norme L2 du vecteur v : " + normeL2);
+	    
+	    double normeLInfini = v.normeLInfini();
+	    System.out.println("Norme LInfini du vecteur v : " + normeLInfini);
 
 	}
 }
