@@ -145,6 +145,28 @@ public class Matrice {
 			}
 		return mat;
 	}
+	
+	
+	/*Méthode qui calcule le produit d'une matrice par un vecteur*/
+	public Vecteur produit(Vecteur vecteur) {
+	    int ligne = this.nbLigne();
+	    int colonne = this.nbColonne();
+	    if (colonne != vecteur.getTaille()) {
+	        throw new IllegalArgumentException("Le nombre de colonnes de la matrice doit être égal à la taille du vecteur.");
+	    }
+	    
+	    double[] resultat = new double[ligne];
+	    
+	    for (int i = 0; i < ligne; i++) {
+	        double produitScalaire = 0;
+	        for (int j = 0; j < colonne; j++) {
+	            produitScalaire += this.coefficient[i][j] * vecteur.getCoef(j);
+	        }
+	        resultat[i] = produitScalaire;
+	    }
+	    
+	    return new Vecteur(resultat);
+	}
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("**********************       EXEMPLE1       **********************\n");
