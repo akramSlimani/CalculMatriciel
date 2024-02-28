@@ -137,7 +137,7 @@ public class Helder extends SysLin {
 		System.out.println("En utilisant un nouveau SecondMembre :\n" + resultResol);
 		
 		
-		System.out.println("********************** Calcul des normes pour A*x - b **********************\n");
+		System.out.println("********************** Calcul des normes pour A * x - b **********************\n");
 		
 		// Création du vecteur représentant Ax - b
 		Matrice solution = systeme.resolution();
