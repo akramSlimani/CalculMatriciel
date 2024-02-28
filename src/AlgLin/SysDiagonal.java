@@ -46,50 +46,59 @@ public class SysDiagonal extends SysLin {
 		}
 
 		System.out.println("**********************       EXEMPLE2 : test norme     ********************************\n");
-		double[][] tab3 = { { 4.0, 0.0, 0.0, 0.0 }, { 0.0, 8.0, 0.0, 0.0 }, { 0.0, 0.0, 6.0, 0.0 },
-				{ 0.0, 0.0, 0.0, 4.0 } };
-		Matrice matriceSys2 = new Matrice(tab3);
-		System.out.println("la matrice A2 :\n" + matriceSys2.toString());
-		System.out.println("******************************************************\n");
+		double[][] matriceDiagonale = { { 2, 0, 0 }, { 0, 3, 0 }, { 0, 0, 4 } };
+		double[] secondMembre2 = { 8, 12, 10 };
 
-		Vecteur v = s.resolution();
-		Vecteur v1 = new Vecteur(tab2.length);
-		Vecteur v2 = new Vecteur(tab2.length);
-		for (int i = 0; i < tab2.length; i++) {
+		Matrice matrice = new Matrice(matriceDiagonale);
+		Vecteur vecteurB = new Vecteur(secondMembre2);
 
-			v2.remplaceCoef(i, 0, Matrice.produit(matriceSys2, v).getCoef(i, 0));
-		}
+		System.out.println("la matrice A :\n" + matrice.toString());
+		System.out.println("le vecteur B :\n" + vecteurB.toString());
 
-		v1 = Vecteur.soustraction(v2, secondMembre);
+		try {
+			SysDiagonal systemDiagonal = new SysDiagonal(matrice, vecteurB);
+			Vecteur solution = systemDiagonal.resolution();
 
-		System.out.println("norme L1 = " + v1.normeL1());
-		if (v1.normeL1() >= Matrice.EPSILON) {
+			System.out.println("Solution du système diagonal Ax = b :");
+			System.out.println(solution);
 
-			System.out.println("L1: bonne résolution\n ");
-		} else {
+			// Calcul de Ax
+			Vecteur produitAx = matrice.produit(solution);
 
-			System.out.println("mauvaise résolution\n ");
-		}
+			// Calcul de Ax - b
+			Vecteur difference = Vecteur.soustraction(produitAx, vecteurB);
 
-		System.out.println("norme L2 = " + v1.normeL2());
-		if (v1.normeL2() >= Matrice.EPSILON) {
+			System.out.println("Vecteur Ax - b :");
+			System.out.println(difference);
+			double normeL1 = difference.normeL1();
+			System.out.println("Norme L1 de Ax - b : " + normeL1);
 
-			System.out.println("L1: bonne résolution\n ");
-		} else {
+			double normeL2 = difference.normeL2();
+			System.out.println("Norme L2 de Ax - b : " + normeL2);
 
-			System.out.println("mauvaise résolution\n ");
+			double normeLInfini = difference.normeLInfini();
+			System.out.println("Norme LInfini de Ax - b : " + normeLInfini + "\n");
 
-		}
+			// Calcul de A(Ax)
+			Vecteur produitAAx = matrice.produit(produitAx);
 
-		System.out.println("norme Linfini = " + v1.normeLInfini());
+			// Calcul de A²x - b
+			Vecteur difference2 = Vecteur.soustraction(produitAAx, vecteurB);
 
-		if (v1.normeLInfini() >= Matrice.EPSILON) {
+			System.out.println("Vecteur A²x - b :");
+			System.out.println(difference2);
 
-			System.out.println("L1: bonne résolution\n ");
-		} else {
+			double normeL12 = difference2.normeL1();
+			System.out.println("Norme L1 de A²x - b : " + normeL12);
 
-			System.out.println("mauvaise résolution\n");
+			double normeL22 = difference2.normeL2();
+			System.out.println("Norme L2 de A²x - b : " + normeL22);
 
+			double normeLInfini2 = difference2.normeLInfini();
+			System.out.println("Norme LInfini de A²x - b : " + normeLInfini2);
+
+		} catch (IrregularSysLinException e) {
+			System.out.println("Erreur : " + e.getMessage());
 		}
 	}
 }
