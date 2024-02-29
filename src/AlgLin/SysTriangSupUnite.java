@@ -42,31 +42,51 @@ public class SysTriangSupUnite extends SysLin {
 	}
 
 	public static void main(String[] args) throws IrregularSysLinException {
-		// exemple du td : (les diagonaux sont tous égaux à 1 ) :
-		System.out.println("**********************       EXEMPLE1 : juste       ********************************\n");
+
 		double[][] tab1 = { { 1.0, 1.0, -2.0 }, { 0.0, 1.0, -1.5 }, { 0.0, 0.0, 1.0 } };
 		Matrice matriceSys = new Matrice(tab1);
-		System.out.println("la matrice A1 :\n" + matriceSys.toString());
+		System.out.println("la matrice A :\n" + matriceSys.toString());
 		System.out.println("******************************************************\n");
 
-		double[] tab2 = { 3.0, 7.0 / 6.0, 11.0 / 9.0 };
+		double[] tab2 = { 3.0, 5.0, 8.0 };
 		Vecteur secondMembre = new Vecteur(tab2);
 		System.out.println("le vecteur B :\n" + secondMembre.toString());
 		System.out.println("******************************************************\n");
 
 		SysTriangSupUnite s = new SysTriangSupUnite(matriceSys, secondMembre);
-		System.out.println("la solution de ce système (vecteur x) :\n" + s.resolution());
 
-		System.out.println("**********************       EXEMPLE2 : erroné     ********************************\n");
-		// exemple éronné : (les diagonaux sont pas tous égaux à 1 ) une exception doit
-		// être levée:
-		double[][] tab3 = { { 1.0, 1.0, -2.0 }, { 0.0, 1.0, -1.5 }, { 0.0, 0.0, 15.0 } };
-		Matrice matriceSys2 = new Matrice(tab3);
-		System.out.println("la matrice A2 :\n" + matriceSys2.toString());
-		System.out.println("******************************************************\n");
+		Vecteur solution = null;
 
-		SysTriangSupUnite s2 = new SysTriangSupUnite(matriceSys2, secondMembre);
-		System.out.println("la solution de ce système (vecteur x) :\n" + s2.resolution());
+		try {
 
+			solution = s.resolution();
+			System.out.println("solution de A*x = b  :\n" + solution);
+		} catch (IrregularSysLinException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("****************    test de la norm ||Ax -b||    **************\n");
+
+		Vecteur v1 = new Vecteur(tab2.length);
+		Vecteur v2 = new Vecteur(tab2.length);
+
+		for (int i = 0; i < tab2.length; i++) {
+
+			v2.remplaceCoef(i, 0, Matrice.produit(matriceSys, solution).getCoef(i, 0));
+		}
+
+		v1 = Vecteur.soustraction(v2, secondMembre);
+
+		System.out.println("norme L1 = " + v1.normeL1());
+		System.out.println("norme L2 = " + v1.normeL2());
+		System.out.println("norme Linfini = " + v1.normeLInfini());
+
+		if (v1.normeLInfini() <= Matrice.EPSILON) {
+
+			System.out.println("bonne résolution");
+		} else {
+
+			System.out.println("mauvaise résolution");
+		}
 	}
 }
