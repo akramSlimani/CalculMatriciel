@@ -148,6 +148,7 @@ public class Matrice {
 	
 	
 	/*Méthode qui calcule le produit d'une matrice par un vecteur*/
+	/*
 	public Vecteur produit(Vecteur vecteur) {
 	    int ligne = this.nbLigne();
 	    int colonne = this.nbColonne();
@@ -167,7 +168,7 @@ public class Matrice {
 	    
 	    return new Vecteur(resultat);
 	}
-
+	*/
 	public static void main(String[] args) throws Exception {
 		System.out.println("**********************       EXEMPLE1       **********************\n");
 		double mat[][] = { { 2, 1 , 3}, { 0, 1 , 4}, { 5, 1 , 3} };
