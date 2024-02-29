@@ -38,9 +38,10 @@ public class SysTriangInf extends SysLin {
 	}
 
 	public static void main(String[] args) throws IrregularSysLinException {
-		// exemple du td :
-		System.out.println("**********************       EXEMPLE1       ********************************\n");
-		double[][] tab1 = { { 1.0, 0.0, 0.0 }, { 4.0, 1.0, 0.0 }, { 3.0, 0.6, 1.0 } };
+		
+		double[][] tab1 = { { 1.0, 0.0, 0.0 }, 
+							{ 4.0, 1.0, 0.0 }, 
+							{ 3.0, 0.6, 1.0 } };
 		Matrice matriceSys = new Matrice(tab1);
 		System.out.println("la matrice A :\n" + matriceSys.toString());
 		System.out.println("******************************************************\n");
@@ -51,53 +52,39 @@ public class SysTriangInf extends SysLin {
 		System.out.println("******************************************************\n");
 
 		SysTriangInf s = new SysTriangInf(matriceSys, secondMembre);
-		System.out.println("la solution de ce système (vecteur x) :\n" + s.resolution());
 
-		System.out.println("**********************       EXEMPLE2 : test norme     ********************************\n");
-		double[][] tab3 = { { 4.0, 0.0, 0.0 }, { 3.0, 1.0, 0.0 }, { 3.0, 0.6, 1.0 } };
-		Matrice matriceSys2 = new Matrice(tab3);
-		System.out.println("la matrice A2 :\n" + matriceSys2.toString());
-		System.out.println("******************************************************\n");
+		Vecteur solution = null;
 
-		Vecteur v = s.resolution();
+		try {
+
+			solution = s.resolution();
+			System.out.println("solution de A*x = b  :\n" + solution);
+		} catch (IrregularSysLinException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("****************    test de la norm ||Ax -b||    **************\n");
+
 		Vecteur v1 = new Vecteur(tab2.length);
 		Vecteur v2 = new Vecteur(tab2.length);
 
 		for (int i = 0; i < tab2.length; i++) {
 
-			v2.remplaceCoef(i, 0, Matrice.produit(matriceSys2, v).getCoef(i, 0));
+			v2.remplaceCoef(i, 0, Matrice.produit(matriceSys, solution).getCoef(i, 0));
 		}
 
 		v1 = Vecteur.soustraction(v2, secondMembre);
 
 		System.out.println("norme L1 = " + v1.normeL1());
-		if (v1.normeL1() >= Matrice.EPSILON) {
-
-			System.out.println("L1: bonne résolution\n ");
-		} else {
-
-			System.out.println("mauvaise résolution\n ");
-		}
-
 		System.out.println("norme L2 = " + v1.normeL2());
-		if (v1.normeL2() >= Matrice.EPSILON) {
-
-			System.out.println("L1: bonne résolution\n ");
-		} else {
-
-			System.out.println("mauvaise résolution\n ");
-
-		}
-
 		System.out.println("norme Linfini = " + v1.normeLInfini());
 
-		if (v1.normeLInfini() >= Matrice.EPSILON) {
+		if (v1.normeLInfini() <= Matrice.EPSILON) {
 
-			System.out.println("L1: bonne résolution\n ");
+			System.out.println("bonne résolution");
 		} else {
 
-			System.out.println("mauvaise résolution\n");
-
+			System.out.println("mauvaise résolution");
 		}
 	}
 
