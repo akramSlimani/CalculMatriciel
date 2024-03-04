@@ -38,10 +38,8 @@ public class SysTriangInf extends SysLin {
 	}
 
 	public static void main(String[] args) throws IrregularSysLinException {
-		
-		double[][] tab1 = { { 1.0, 0.0, 0.0 }, 
-							{ 4.0, 1.0, 0.0 }, 
-							{ 3.0, 0.6, 1.0 } };
+
+		double[][] tab1 = { { 1.0, 0.0, 0.0 }, { 4.0, 1.0, 0.0 }, { 3.0, 0.6, 1.0 } };
 		Matrice matriceSys = new Matrice(tab1);
 		System.out.println("la matrice A :\n" + matriceSys.toString());
 		System.out.println("******************************************************\n");
@@ -63,7 +61,7 @@ public class SysTriangInf extends SysLin {
 			e.printStackTrace();
 		}
 
-		System.out.println("****************    test de la norm ||Ax -b||    **************\n");
+		System.out.println("****************    test de la norme ||Ax -b||    **************\n");
 
 		Vecteur v1 = new Vecteur(tab2.length);
 		Vecteur v2 = new Vecteur(tab2.length);
