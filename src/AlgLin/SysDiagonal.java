@@ -51,7 +51,7 @@ public class SysDiagonal extends SysLin {
 			e.printStackTrace();
 		}
 		
-		System.out.println("****************    test de la norm ||Ax -b||    **************\n");
+		System.out.println("****************    test de la norme ||Ax -b||    **************\n");
 
 		Vecteur v1 = new Vecteur(tab2.length);
 		Vecteur v2 = new Vecteur(tab2.length);
