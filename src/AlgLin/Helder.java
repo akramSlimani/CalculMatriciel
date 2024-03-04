@@ -15,7 +15,7 @@ public class Helder extends SysLin {
 
 		Matrice m = new Matrice(this.getMatriceSystem().nbLigne(), this.getMatriceSystem().nbColonne());
 
-		/*stocker la copie de la matrice système dans m*/
+		/* stocker la copie de la matrice système dans m */
 		for (int i = 0; i < this.getMatriceSystem().nbLigne(); i++) {
 
 			for (int j = 0; j < this.getMatriceSystem().nbLigne(); j++) {
@@ -60,7 +60,7 @@ public class Helder extends SysLin {
 		Matrice a = new Matrice(this.getMatriceSystem().nbLigne(), this.getMatriceSystem().nbLigne());
 		a = Matrice.produit(l, Matrice.produit(d, r));
 
-		//System.out.println("Résultat de L * D * R  : \n" + a);
+		// System.out.println("Résultat de L * D * R : \n" + a);
 	}
 
 	public Vecteur resolutionPartielle() throws IrregularSysLinException {
@@ -109,78 +109,62 @@ public class Helder extends SysLin {
 
 	public static void main(String[] args) throws IrregularSysLinException {
 
-		System.out.println("**********************       test Helder       ********************************\n");
 		Matrice premierMembre = new Matrice("C:\\Users\\akram\\eclipse-workspace\\Calcul_Matriciel\\src\\AlgLin\\matrice1.txt");
 		Vecteur secondMembre = new Vecteur("C:\\Users\\akram\\eclipse-workspace\\Calcul_Matriciel\\src\\AlgLin\\vecteur1.txt");
 
-		System.out.println("la matrice A :\n" + premierMembre.toString());
+		System.out.println("Matrice A : \n"+ premierMembre);
 		System.out.println("******************************************************\n");
 		
-		System.out.println("le second membre :\n" + secondMembre.toString());
+		System.out.println("Vecteur b : \n" + secondMembre);
+		System.out.println("***********      factorisation LDR     ************\n");
+
+		Helder sys1 = new Helder(premierMembre, secondMembre);
+
+		sys1.factorLDR();
+
+		Vecteur result1 = sys1.resolutionPartielle();
+
+		System.out.println("******   la resolution partielle :   ******** \n"+ result1);
+
+		Helder sys2 = new Helder(premierMembre, secondMembre);
+
+		Vecteur result2 = sys2.resolution();
+
+		System.out.println("******   la resolution simple :   ******** \n"+ result2);
+
+		Vecteur secMembre2 = new Vecteur("C:\\Users\\akram\\eclipse-workspace\\Calcul_Matriciel\\src\\AlgLin\\vecteur3.txt");
+		sys2.setSecondMembre(secMembre2);
+
 		System.out.println("******************************************************\n");
 
+		System.out.println("Nouveau second membre : \n"+ secMembre2);
+		System.out.println("Résolution de ce nouveau système : \n" + sys2.resolution());
+
 		
-	
-		Helder systeme = new Helder(premierMembre, secondMembre);
-		systeme.factorLDR();
+		System.out.println("****************    test de la norme ||Ax -b||    **************\n");
 		
-		Vecteur resultPartiel = systeme.resolutionPartielle();
-		System.out.println("En utilisant la resolution partielle aprés factorisation :\n" + resultPartiel);
-	   
-		Vecteur resultResol = systeme.resolution();
-		System.out.println("En utilisant la resolution normale :\n" + resultResol);
-		
-		double[] tab2 = { 3.0, 5.0, 8.0 };
-		Vecteur secondMembre2 = new Vecteur(tab2);
-		System.out.println("le vecteur B :\n" + secondMembre2.toString());
-		systeme.setSecondMembre(secondMembre2);
-		System.out.println("En utilisant un nouveau SecondMembre :\n" + resultResol);
-		
-		
-		System.out.println("********************** Calcul des normes pour A * x - b **********************\n");
-		
-		// Création du vecteur représentant Ax - b
-		Matrice solution = systeme.resolution();
-		double[] tabSolution = new double[solution.nbLigne()]; 
-		for (int i = 0; i < solution.nbLigne(); i++) {
-			tabSolution[i] = solution.getCoef(i, 0); 
+		sys2.setSecondMembre(secondMembre);
+		Vecteur v1 = new Vecteur(secondMembre.getTaille());
+		Vecteur v2 = new Vecteur(secondMembre.getTaille());
+
+		for (int i = 0; i < secondMembre.getTaille(); i++) {
+
+			v2.remplaceCoef(i, 0, Matrice.produit(premierMembre, result2).getCoef(i, 0));
 		}
-		Vecteur solutionVecteur = new Vecteur(tabSolution); 
-		Vecteur axMoinsB = Vecteur.soustraction(solutionVecteur, secondMembre); 
-		System.out.println("Vecteur Ax - b :\n" + axMoinsB);
 
-		
+		v1 = Vecteur.soustraction(v2, secondMembre);
 
-		// Calcul de la norme L1
-		double normeL1 = axMoinsB.normeL1();
-		System.out.println("Norme L1 de Ax - b : " + normeL1);
-		if (normeL1 < Matrice.EPSILON) {
-		    System.out.println("L1: bonne résolution\n");
+		System.out.println("norme L1 = " + v1.normeL1());
+		System.out.println("norme L2 = " + v1.normeL2());
+		System.out.println("norme Linfini = " + v1.normeLInfini());
+
+		if (v1.normeLInfini() <= Matrice.EPSILON) {
+
+			System.out.println("bonne résolution");
 		} else {
-		    System.out.println("mauvaise résolution\n");
-		}
 
-		// Calcul de la norme L2
-		double normeL2 = axMoinsB.normeL2();
-		System.out.println("Norme L2 de Ax - b : " + normeL2);
-		if (normeL2 < Matrice.EPSILON) {
-		    System.out.println("L2: bonne résolution\n");
-		} else {
-		    System.out.println("mauvaise résolution\n");
+			System.out.println("mauvaise résolution");
 		}
-
-		// Calcul de la norme Linfini
-		double normeLinfini = axMoinsB.normeLInfini();
-		System.out.println("Norme Linfini de Ax - b : " + normeLinfini);
-		if (normeLinfini < Matrice.EPSILON) {
-		    System.out.println("Linfini: bonne résolution\n");
-		} else {
-		    System.out.println("mauvaise résolution\n");
-		}
-		
-		
-		//System.out.println("********************** Calcul des normes pour A²*x - b **********************\n");
-
 		
 	}
 }
