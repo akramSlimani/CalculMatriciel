@@ -45,12 +45,10 @@ public class SysTriangSup extends SysLin {
 		System.out.println("la matrice A :\n" + matriceSys.toString());
 		System.out.println("******************************************************\n");
 
-
 		double[] tab2 = { 4.0, 16.0, 9.0 };
 		Vecteur secondMembre = new Vecteur(tab2);
 		System.out.println("le vecteur B :\n" + secondMembre.toString());
 		System.out.println("******************************************************\n");
-
 
 		SysTriangSup s = new SysTriangSup(matriceSys, secondMembre);
 
@@ -63,8 +61,8 @@ public class SysTriangSup extends SysLin {
 		} catch (IrregularSysLinException e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println("****************    test de la norm ||Ax -b||    **************\n");
+
+		System.out.println("****************    test de la norme ||Ax -b||    **************\n");
 
 		Vecteur v1 = new Vecteur(tab2.length);
 		Vecteur v2 = new Vecteur(tab2.length);
