@@ -2,56 +2,97 @@ package AlgLin;
 
 public class Thomas extends SysLin {
 
-	public static Matrice l, u;
+	private static Matrice l, u;
 
-	public Thomas(Mat3Diag matriceSystem, Vecteur secondMembre) throws IrregularSysLinException {
-		super(matriceSystem, secondMembre);
+	public Thomas(Matrice matrice, Vecteur secMembre) throws IrregularSysLinException {
+
+		super(matrice, secMembre);
 	}
 
 	@Override
 	public Vecteur resolution() throws IrregularSysLinException {
 
-		Vecteur solution = new Vecteur(this.getMatriceSystem().nbColonne());
+		Vecteur result = new Vecteur(this.getMatriceSystem().nbColonne());
 
 		SysTriangInfUnite s1 = new SysTriangInfUnite(l, this.getSecondMembre());
-		Vecteur v = s1.resolution();
+		Vecteur inter = s1.resolution();
 
-		SysTriangSup s2 = new SysTriangSup(u, v);
-		solution = s2.resolution();
+		SysTriangSup s2 = new SysTriangSup(u, inter);
+		result = s2.resolution();
 
-		return solution;
+		return result;
+	}
+
+	public static void factorLU(Mat3Diag matrice) {
+
+		/* create l & u */
+		l = new Matrice(matrice.nbColonne(), matrice.nbColonne());
+		u = new Matrice(matrice.nbColonne(), matrice.nbColonne());
+
+		/* init l & u */
+		u.remplacecoef(0, 0, matrice.getCoef(1, 0));
+		u.remplacecoef(0, 1, matrice.getCoef(2, 0));
+		l.remplacecoef(0, 0, 1);
+		l.remplacecoef(1, 0, matrice.getCoef(0, 1) / u.getCoef(0, 0));
+
+		/* boucle pour finir la factorisation */
+		for (int i = 1; i < matrice.nbColonne(); ++i) {
+
+			u.remplacecoef(i, i, matrice.getCoef(1, i) - l.getCoef(i, i - 1) * u.getCoef(i - 1, i));
+			l.remplacecoef(i, i, 1);
+
+			if (i < matrice.nbColonne() - 1) {
+
+				u.remplacecoef(i, i + 1, matrice.getCoef(2, i));
+				l.remplacecoef(i + 1, i, matrice.getCoef(0, i + 1) / u.getCoef(i, i));
+			}
+		}
 	}
 
 	public static void main(String[] args) throws Exception {
-		try {
-			System.out.println("********************** Test de la classe Thomas **********************\n");
 
-			double[][] matriceCoeffs = { {2.0, 1.0, 0.0}, {1.0, 2.0, 1.0}, {0.0, 1.0, 2.0} };
-			Mat3Diag matriceSystem = new Mat3Diag(matriceCoeffs);
+		double[][] tableau = { { 0, 1, 2, 1, 4 }, { 3, 2, 2, 1, 2 }, { 2, 1, 1, 2, 0 } };
+		Mat3Diag matrice = new Mat3Diag(tableau);
 
-			double[] secondMembreCoeffs = {1.0, 2.0, 3.0};
-			Vecteur secondMembre = new Vecteur(secondMembreCoeffs);
+		double[] v = { 2, 1, 1, 4, 3 };
+		Vecteur vect = new Vecteur(v);
 
-			Thomas thomasSystem = new Thomas(matriceSystem, secondMembre);
+		factorLU(matrice);
 
-			Vecteur solution = thomasSystem.resolution();
+		Thomas sys = new Thomas(Matrice.produit(l, u), vect);
+		Vecteur result = sys.resolution();
 
-			System.out.println("Solution du système :");
-			System.out.println(solution);
+		System.out.println("Matrice de base : ");
+		System.out.println(sys.getMatriceSystem());
+		System.out.println();
+		System.out.println("Vecteur de base : ");
+		System.out.println(vect);
+		System.out.println();
+		System.out.println("Résultat de Ax = b avec A la matrice de base et b le vecteur de base :");
+		System.out.println(result);
 
-			System.out.println("\nVérification du résultat :");
+		/* Vérification */
 
-			System.out.println("Matrice d'origine :");
-			System.out.println(matriceSystem);
+		Vecteur verif = new Vecteur(v.length);
+		Vecteur inter = new Vecteur(v.length);
 
-			System.out.println("Produit de la matrice d'origine avec la solution :");
-			Vecteur produit = Mat3Diag.multVect(matriceSystem, solution);
-			System.out.println(produit);
+		for (int i = 0; i < v.length; ++i) {
 
-			double difference = Vecteur.produit(secondMembre, produit);
-			System.out.println("\nNorme de la différence entre le second membre et le produit : " + difference);
-		} catch (Exception e) {
-			e.printStackTrace();
+			inter.remplaceCoef(i, 0, Matrice.produit(sys.getMatriceSystem(), result).getCoef(i, 0));
+		}
+
+		verif = Vecteur.soustraction(inter, vect);
+
+		System.out.println("norme L1 = " + verif.normeL1());
+		System.out.println("norme L2 = " + verif.normeL2());
+		System.out.println("norme Linfini = " + verif.normeLInfini());
+
+		if (verif.normeLInfini() <= Matrice.EPSILON) {
+
+			System.out.println("La résolution est bonne");
+		} else {
+
+			System.out.println("La résolution n'est pas bonne");
 		}
 	}
 }
